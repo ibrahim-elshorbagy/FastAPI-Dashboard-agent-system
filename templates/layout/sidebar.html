@@ -18,7 +18,7 @@
         {# Example with icon #}
         {{ sidebar_link(
             href="#",
-            icon='<i class="fa-solid fa-chart-simple size-5 shrink-0"></i>',
+            icon='<i class="fa-solid fa-chart-simple  shrink-0"></i>',
             text="Dashboard"
         ) }}
 
@@ -31,12 +31,12 @@
         {% call submenu(
             id="user-management",
             title="User Management",
-            icon='<i class="fa-solid fa-users size-5 shrink-0"></i>'
+            icon='<i class="fa-solid fa-users  shrink-0"></i>'
         ) %}
             {# Sublink with icon #}
             {{ sidebar_sublink(
                 href="#",
-                icon='<i class="fa-solid fa-user size-5 shrink-0"></i>',
+                icon='<i class="fa-solid fa-user  shrink-0"></i>',
                 text="Users"
             ) }}
             {# Sublink without icon #}
@@ -44,14 +44,14 @@
             {# Another sublink with icon #}
             {{ sidebar_sublink(
                 href="#",
-                icon='<i class="fa-solid fa-clock-rotate-left size-5 shrink-0"></i>',
+                icon='<i class="fa-solid fa-clock-rotate-left  shrink-0"></i>',
                 text="Activity Log"
             ) }}
         {% endcall %}
 
         {{ sidebar_link(
             href="#",
-            icon='<i class="fa-solid fa-gear size-5 shrink-0"></i>',
+            icon='<i class="fa-solid fa-gear  shrink-0"></i>',
             text="Settings"
         ) }}
     </div>
