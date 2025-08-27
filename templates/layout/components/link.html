@@ -1,0 +1,19 @@
+{% macro sidebar_link(href="#", icon=None, text="") %}
+<a href="{{ href }}" class="flex items-center rounded-sm {% if icon %}gap-2{% endif %} px-2 py-1.5 text-sm font-medium text-neutral-600 underline-offset-2 hover:bg-sky-700/5 hover:text-neutral-900 focus-visible:underline focus:outline-hidden">
+    {% if icon %}
+    {{ icon | safe }}
+    {% endif %}
+    <span>{{ text }}</span>
+</a>
+{% endmacro %}
+
+{% macro sidebar_sublink(href="#", icon=None, text="") %}
+<li class="px-1 py-0.5 first:mt-2">
+    <a href="{{ href }}" class="flex items-center rounded-sm {% if icon %}gap-2{% endif %} px-2 py-1.5 text-sm text-neutral-600 underline-offset-2 hover:bg-sky-700/5 hover:text-neutral-900 focus:outline-hidden focus-visible:underline">
+        {% if icon %}
+        {{ icon | safe }}
+        {% endif %}
+        <span>{{ text }}</span>
+    </a>
+</li>
+{% endmacro %}
