@@ -1,19 +1,20 @@
 {% macro sidebar_link(href="#", icon=None, text="") %}
-<a href="{{ href }}" class="flex items-center rounded-sm {% if icon %}gap-2{% endif %} px-2 py-1.5 text-sm font-medium text-neutral-600 underline-offset-2 hover:bg-sky-700/5 hover:text-neutral-900 focus-visible:underline focus:outline-hidden">
-    {% if icon %}
-    {{ icon | safe }}
-    {% endif %}
-    <span>{{ text }}</span>
+<a
+  href="{{ href }}"
+  class="flex items-center rounded-md {% if icon %}gap-2{% endif %} px-3 py-2 text-sm font-medium text-slate-600 hover:bg-red-50 hover:text-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 transition-all"
+>
+  {% if icon %} {{ icon | safe }} {% endif %}
+  <span>{{ text }}</span>
 </a>
-{% endmacro %}
 
-{% macro sidebar_sublink(href="#", icon=None, text="") %}
+{% endmacro %} {% macro sidebar_sublink(href="#", icon=None, text="") %}
 <li class="px-1 py-0.5 first:mt-2">
-    <a href="{{ href }}" class="flex items-center rounded-sm {% if icon %}gap-2{% endif %} px-2 py-1.5 text-sm text-neutral-600 underline-offset-2 hover:bg-sky-700/5 hover:text-neutral-900 focus:outline-hidden focus-visible:underline">
-        {% if icon %}
-        {{ icon | safe }}
-        {% endif %}
-        <span>{{ text }}</span>
-    </a>
+  <a
+    href="{{ href }}"
+    class="flex items-center rounded-md {% if icon %}gap-2{% endif %} px-3 py-2 text-sm text-slate-500 hover:bg-red-50 hover:text-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 transition-all"
+  >
+    {% if icon %} {{ icon | safe }} {% endif %}
+    <span>{{ text }}</span>
+  </a>
 </li>
 {% endmacro %}

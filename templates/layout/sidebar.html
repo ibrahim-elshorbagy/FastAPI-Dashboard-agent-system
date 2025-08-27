@@ -1,58 +1,49 @@
 {% from "layout/components/link.html" import sidebar_link, sidebar_sublink %}
 {% from "layout/components/submenu.html" import submenu %}
-
 <!-- This allows screen readers to skip the sidebar and go directly to the main content. -->
 <a class="sr-only" href="#main-content">skip to the main content</a>
-
 <!-- dark overlay for when the sidebar is open on smaller screens  -->
-<div x-cloak x-show="showSidebar" class="fixed inset-0 z-10 bg-zinc-900/10 backdrop-blur-xs md:hidden" aria-hidden="true" x-on:click="showSidebar = false" x-transition.opacity></div>
-
-<nav x-cloak class="fixed left-0 z-20 flex h-svh w-60 shrink-0 flex-col border-r border-zinc-300 bg-zinc-100 p-4 transition-transform duration-300 md:w-64 md:translate-x-0 md:relative" x-bind:class="showSidebar ? 'translate-x-0' : '-translate-x-60'" aria-label="sidebar navigation">
-    <!-- homepage  -->
-    <a href="#" class="ml-2 w-fit text-2xl font-bold text-neutral-900">
-        <span class="sr-only">homepage</span>
-    </a>
-
-    <!-- sidebar links  -->
-    <div class="flex flex-col gap-2 overflow-y-auto pb-6">
-        {# Example with icon #}
-        {{ sidebar_link(
-            href="#",
-            icon='<i class="fa-solid fa-chart-simple  shrink-0"></i>',
-            text="Dashboard"
-        ) }}
-
-        {# Example without icon #}
-        {{ sidebar_link(
-            href="#",
-            text="Quick Access"
-        ) }}
-
-        {% call submenu(
-            id="user-management",
-            title="User Management",
-            icon='<i class="fa-solid fa-users  shrink-0"></i>'
-        ) %}
-            {# Sublink with icon #}
-            {{ sidebar_sublink(
-                href="#",
-                icon='<i class="fa-solid fa-user  shrink-0"></i>',
-                text="Users"
-            ) }}
-            {# Sublink without icon #}
-            {{ sidebar_sublink(href="#", text="Permissions") }}
-            {# Another sublink with icon #}
-            {{ sidebar_sublink(
-                href="#",
-                icon='<i class="fa-solid fa-clock-rotate-left  shrink-0"></i>',
-                text="Activity Log"
-            ) }}
-        {% endcall %}
-
-        {{ sidebar_link(
-            href="#",
-            icon='<i class="fa-solid fa-gear  shrink-0"></i>',
-            text="Settings"
-        ) }}
+<div x-cloak
+     x-show="showSidebar"
+     class="fixed inset-0 z-10 bg-zinc-900/10 backdrop-blur-xs md:hidden"
+     aria-hidden="true"
+     x-on:click="showSidebar = false"
+     x-transition.opacity></div>
+<nav x-cloak
+     class="fixed left-0 z-20 flex h-svh w-60 shrink-0 flex-col border-r border-slate-200 bg-white p-4 transition-transform duration-300 md:w-64 md:translate-x-0 md:relative shadow-lg"
+     x-bind:class="showSidebar ? 'translate-x-0' : '-translate-x-60'"
+     aria-label="sidebar navigation">
+  <!-- homepage and logo -->
+  <div class="flex flex-col items-center gap-4 mb-6">
+    <!-- Logo image -->
+    <div class="w-32 h-32 flex items-center justify-center">
+      <img height="full"
+           width="full"
+           src="{{ url_for('static', path='images/settings/logo.png') }}"
+           alt="Company Logo"
+           class="max-w-full max-h-full object-contain" />
     </div>
+  </div>
+  <!-- sidebar links  -->
+  <div class="flex flex-col gap-2 overflow-y-auto pb-6">
+    {{ sidebar_link(href="#",
+        icon='<i class="fa-solid fa-chart-simple  shrink-0"></i>',
+        text="Dashboard") }}
+    {% call submenu(
+      id="user-management",
+      title="User Management",
+      icon='<i class="fa-solid fa-users  shrink-0"></i>'
+      ) %}
+      {# Sublink with icon #}
+      {{ sidebar_sublink(href="#",
+            icon='<i class="fa-solid fa-user  shrink-0"></i>',
+            text="Users") }}
+      {{ sidebar_sublink(href="#",
+            icon='<i class="fa-solid fa-clock-rotate-left  shrink-0"></i>',
+            text="Activity Log") }}
+    {% endcall %}
+    {{ sidebar_link(href="#",
+        icon='<i class="fa-solid fa-gear  shrink-0"></i>',
+        text="Settings") }}
+  </div>
 </nav>

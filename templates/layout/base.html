@@ -3,36 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}{{ title }}{% endblock %}</title>
-
+    <title>
+      {% block title %}{{ title }}{% endblock %}
+    </title>
     <!-- tailwindcss -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
-
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
     <!-- alpinejs -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+    <script defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     {% block head %}{% endblock %}
   </head>
   <body>
-    <div x-data="{ showSidebar: false }" class="relative flex w-full flex-col md:flex-row">
+    <div x-data="{ showSidebar: false }"
+         class="relative flex w-full flex-col md:flex-row">
       {% include "layout/sidebar.html" %}
-      
       <!-- main content  -->
       <div id="main-content" class="h-svh w-full overflow-y-auto p-4 bg-zinc-50">
-          {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
       </div>
-  
       <!-- toggle button for small screen  -->
-      <button class="fixed right-4 top-4 z-20 rounded-full bg-sky-700 p-4 md:hidden text-white" x-on:click="showSidebar = ! showSidebar">
-          <i x-show="showSidebar" class="fa-solid fa-xmark " aria-hidden="true"></i>
-          <i x-show="! showSidebar" class="fa-solid fa-bars " aria-hidden="true"></i>
-          <span class="sr-only">sidebar toggle</span>
+      <button class="fixed right-4 top-4 z-20 rounded-full bg-sky-700 p-4 md:hidden text-white"
+              x-on:click="showSidebar = ! showSidebar">
+        <i x-show="showSidebar" class="fa-solid fa-xmark " aria-hidden="true"></i>
+        <i x-show="! showSidebar" class="fa-solid fa-bars " aria-hidden="true"></i>
+        <span class="sr-only">sidebar toggle</span>
       </button>
     </div>
-
     {% block scripts %}{% endblock %}
   </body>
 </html>
