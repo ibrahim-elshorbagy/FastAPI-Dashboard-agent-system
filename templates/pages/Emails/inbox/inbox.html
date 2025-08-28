@@ -1,12 +1,128 @@
 {% extends "layout/base.html" %}
-
 {% block title %}Inbox{% endblock %}
-
 {% block content %}
-<div class="p-4">
-    <h1 class="text-2xl font-bold mb-4">Inbox</h1>
-    <div class="bg-white rounded-lg shadow p-6">
-        <p class="text-gray-600">Your inbox messages will appear here.</p>
+  <div class="bg-white rounded-lg shadow-lg p-6">
+    <div x-data="{ search: '', filterStatus: 'all', emails: [ { id: 1, subject: 'Weekly Report Summary', from: 'john.doe@company.com', status: 'unread', date: '2025-08-28', priority: 'high' }, { id: 2, subject: 'Meeting Schedule Update', from: 'sarah.smith@company.com', status: 'read', date: '2025-08-28', priority: 'medium' }, { id: 3, subject: 'Project Deadline Extension', from: 'mike.brown@company.com', status: 'unread', date: '2025-08-27', priority: 'high' }, { id: 4, subject: 'New Client Onboarding', from: 'emma.wilson@company.com', status: 'read', date: '2025-08-27', priority: 'low' }, { id: 5, subject: 'System Maintenance Notice', from: 'it.support@company.com', status: 'read', date: '2025-08-26', priority: 'medium' } ] }">
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-600">
+          <div class="flex items-center justify-between">
+            <div class="flex-1">
+              <h3 class="text-sm font-medium text-gray-500">Today's Inbox</h3>
+              <div class="mt-2 flex items-baseline">
+                <p class="text-2xl font-bold text-gray-900">124</p>
+              </div>
+            </div>
+            <div class="p-3 bg-red-50 rounded-full">
+              <i class="fa-solid fa-envelope text-xl text-red-600"></i>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-600">
+          <div class="flex items-center justify-between">
+            <div class="flex-1">
+              <h3 class="text-sm font-medium text-gray-500">Important</h3>
+              <div class="mt-2 flex items-baseline">
+                <p class="text-2xl font-bold text-gray-900">36</p>
+              </div>
+            </div>
+            <div class="p-3 bg-red-50 rounded-full">
+              <i class="fa-solid fa-flag text-xl text-red-600"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Filters -->
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <div class="flex flex-wrap gap-4 items-center">
+          <div class="flex-1 min-w-[200px]">
+            <div class="relative">
+              <input type="text"
+                     x-model="search"
+                     placeholder="Search emails..."
+                     class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-red-500 focus:border-red-500">
+              <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
+            </div>
+          </div>
+          <div class="relative">
+            <select x-model="filterStatus"
+                    class="w-[200px] appearance-none bg-white border border-gray-300 rounded-lg px-4 py-2.5 pr-10 focus:ring-2 focus:ring-red-500/30 focus:border-red-500">
+              <option value="" disabled>Select Status</option>
+              <option value="all">All Messages</option>
+              <option value="new">New</option>
+              <option value="read">Read</option>
+              <option value="important">Important</option>
+              <option value="flagged">Flagged</option>
+              <option value="spam">Spam</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+              <i class="fa-solid fa-chevron-down text-xs"></i>
+            </div>
+          </div>
+          <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 flex items-center gap-2">
+            <i class="fa-solid fa-filter"></i>
+            Apply Filters
+          </button>
+        </div>
+      </div>
+      <!-- Email Table -->
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-gray-50 text-xs uppercase text-gray-700">
+              <tr>
+                <th class="p-4">
+                  <input type="checkbox"
+                         class="rounded border-gray-300 text-red-600 focus:ring-red-500">
+                </th>
+                <th class="p-4">Status</th>
+                <th class="p-4">From</th>
+                <th class="p-4">Subject</th>
+                <th class="p-4">Date</th>
+                <th class="p-4">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              <template x-for="email in emails" :key="email.id">
+                <tr class="hover:bg-gray-50">
+                  <td class="p-4">
+                    <input type="checkbox"
+                           class="rounded border-gray-300 text-red-600 focus:ring-red-500">
+                  </td>
+                  <td class="p-4">
+                    <span x-show="email.status === 'unread'"
+                          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                      Unread
+                    </span>
+                    <span x-show="email.status === 'read'"
+                          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                      Read
+                    </span>
+                  </td>
+                  <td class="p-4" x-text="email.from"></td>
+                  <td class="p-4">
+                    <div class="flex items-center gap-2">
+                      <span x-text="email.subject"></span>
+                    </div>
+                  </td>
+                  <td class="p-4" x-text="email.date"></td>
+                  <td class="p-4">
+                    <div class="flex items-center gap-2">
+                      <!-- View button -->
+                      <button class="text-gray-400 hover:text-red-600">
+                        <i class="fa-solid fa-eye"></i>
+                      </button>
+                      <!-- Important flag button -->
+                      <button class="text-gray-400 hover:text-red-600">
+                        <i class="fa-solid fa-flag"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-</div>
-{% endblock %}
+  {% endblock %}
