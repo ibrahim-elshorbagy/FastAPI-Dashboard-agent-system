@@ -1,15 +1,15 @@
-{% macro submenu(id, title, icon=None) %}
-  <div x-data="{ isExpanded: false }" class="flex flex-col">
+{% macro submenu(id, title, icon=None, is_active=False) %}
+  <div x-data="{ isExpanded: {{ 'true' if is_active else 'false' }} }" class="flex flex-col">
     <button type="button"
-            x-on:click="isExpanded = ! isExpanded"
+            x-on:click="isExpanded = !isExpanded"
             id="{{ id }}-btn"
             aria-controls="{{ id }}"
             x-bind:aria-expanded="isExpanded ? 'true' : 'false'"
             class="flex items-center justify-between rounded-md gap-2 px-3 py-2 text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-600"
-            x-bind:class="isExpanded ? 'text-red-600 bg-red-50 shadow-sm' : 'text-slate-600 hover:bg-red-50/50 hover:text-red-600'">
+            x-bind:class="isExpanded || {{ 'true' if is_active else 'false' }} ? 'text-red-600 bg-red-50 shadow-sm' : 'text-slate-600 hover:bg-red-50/50 hover:text-red-600'">
       {% if icon %}{{ icon | safe }}{% endif %}
       <span class="mr-auto text-left"
-            x-bind:class="isExpanded ? 'font-semibold' : ''">{{ title }}</span>
+            x-bind:class="isExpanded || {{ 'true' if is_active else 'false' }} ? 'font-semibold' : ''">{{ title }}</span>
       <i class="fa-solid fa-chevron-down size-5 transition-transform shrink-0"
          x-bind:class="isExpanded ? 'rotate-180 text-red-600' : 'rotate-0'"
          aria-hidden="true"></i>
@@ -17,6 +17,7 @@
     <ul x-cloak
         x-collapse
         x-show="isExpanded"
+        class="rounded-md mt-1 "
         aria-labelledby="{{ id }}-btn"
         id="{{ id }}">
       {{ caller() }}

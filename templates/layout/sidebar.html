@@ -16,7 +16,7 @@
   <!-- homepage and logo -->
   <div class="flex flex-col items-center gap-4 mb-6">
     <!-- Logo image -->
-    <div class="w-32 h-32 flex items-center justify-center">
+    <div class="w-16 h-16 flex items-center justify-center">
       <img height="full"
            width="full"
            src="{{ url_for('static', path='images/settings/logo.png') }}"
@@ -26,24 +26,89 @@
   </div>
   <!-- sidebar links  -->
   <div class="flex flex-col gap-2 overflow-y-auto pb-6">
-    {{ sidebar_link(href="#",
-        icon='<i class="fa-solid fa-chart-simple  shrink-0"></i>',
-        text="Dashboard") }}
+    {# Dashboard Link #}
+    {{ sidebar_link(
+        href="/",
+        icon='<i class="fa-solid fa-gauge shrink-0"></i>',
+        text="Dashboard",
+        is_active=active_menu == "dashboard"
+    ) }}
+
+    {# Email Management #}
     {% call submenu(
-      id="user-management",
-      title="User Management",
-      icon='<i class="fa-solid fa-users  shrink-0"></i>'
-      ) %}
-      {# Sublink with icon #}
-      {{ sidebar_sublink(href="#",
-            icon='<i class="fa-solid fa-user  shrink-0"></i>',
-            text="Users") }}
-      {{ sidebar_sublink(href="#",
-            icon='<i class="fa-solid fa-clock-rotate-left  shrink-0"></i>',
-            text="Activity Log") }}
+        id="emails",
+        title="Emails",
+        icon='<i class="fa-solid fa-envelope shrink-0"></i>',
+        is_active=active_menu == "emails"
+    ) %}
+        {{ sidebar_sublink(
+            href="/emails/inbox",
+            icon='<i class="fa-solid fa-inbox shrink-0"></i>',
+            text="Inbox",
+            is_active=active_submenu == "inbox"
+        ) }}
+        {{ sidebar_sublink(
+            href="/emails/sent",
+            icon='<i class="fa-solid fa-paper-plane shrink-0"></i>',
+            text="Sent",
+            is_active=active_submenu == "sent"
+        ) }}
+        {{ sidebar_sublink(
+            href="/emails/draft",
+            icon='<i class="fa-solid fa-file shrink-0"></i>',
+            text="Draft",
+            is_active=active_submenu == "draft"
+        ) }}
+        {{ sidebar_sublink(
+            href="/emails/spam",
+            icon='<i class="fa-solid fa-ban shrink-0"></i>',
+            text="Spam",
+            is_active=active_submenu == "spam"
+        ) }}
+        {{ sidebar_sublink(
+          href="/emails/bin",
+          icon='<i class="fa-solid fa-trash-can shrink-0"></i>',
+          text="Bin",
+          is_active=active_submenu == "bin"
+      ) }}
     {% endcall %}
-    {{ sidebar_link(href="#",
-        icon='<i class="fa-solid fa-gear  shrink-0"></i>',
-        text="Settings") }}
+
+    {# HR Management #}
+    {% call submenu(
+        id="hr",
+        title="HR Management",
+        icon='<i class="fa-solid fa-users shrink-0"></i>',
+        is_active=active_menu == "hr"
+    ) %}
+      {{ sidebar_sublink(
+        href="/hr",
+        icon='<i class="fa-solid fa-gauge shrink-0"></i>',
+        text="HR Management",
+        is_active=active_submenu == "hr"
+    ) }}
+    {% endcall %}
+
+    {# Reports Management #}
+    {% call submenu(
+        id="reports",
+        title="Reports Management",
+        icon='<i class="fa-solid fa-chart-bar shrink-0"></i>',
+        is_active=active_menu == "reports"
+    ) %}
+    {{ sidebar_sublink(
+          href="/reports",
+          icon='<i class="fa-solid fa-gauge shrink-0"></i>',
+          text="Reports Management",
+          is_active=active_submenu == "reports"
+      ) }}
+    {% endcall %}
+
+    {# Settings Link #}
+    {{ sidebar_link(
+        href="/settings",
+        icon='<i class="fa-solid fa-gear shrink-0"></i>',
+        text="Settings",
+        is_active=active_menu == "settings"
+    ) }}
   </div>
 </nav>
